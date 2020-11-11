@@ -27,8 +27,6 @@ const MovieListContainer: React.FC = () => {
     });
   }, [data]);
 
-  console.log('concat: ', concatenatedGroup);
-
   return (
     <MovieList
       data={concatenatedGroup}

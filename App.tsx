@@ -23,7 +23,9 @@ const App: React.FC = () => {
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
         <Layout style={styles.container}>
-          <Router />
+          <FavoritesContextProvider>
+            <Router />
+          </FavoritesContextProvider>
         </Layout>
       </ApplicationProvider>
     </>

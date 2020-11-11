@@ -39,6 +39,7 @@ export const FavoritesContextProvider: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log('state changed', state);
     if (state) {
       if (state.data?.length) {
         (async () => {

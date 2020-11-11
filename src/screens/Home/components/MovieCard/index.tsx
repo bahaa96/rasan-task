@@ -1,13 +1,12 @@
 import { Button, useTheme } from '@ui-kitten/components';
 import { LinearGradient } from 'expo-linear-gradient';
 import { camelizeKeys } from 'humps';
-import React, { useContext, useMemo, useState } from 'react';
+import React from 'react';
 import { Share, Text, View } from 'react-native';
 
 import HorizontalDivider from '../../../../components/HorizontalDivider';
 import ImageRenderer from '../../../../components/ImageRenderer';
 import config from '../../../../config';
-import FavoritesContext from '../../../../context/FavoritesContext';
 import { IMovie } from '../MovieList/Model';
 import { HeartIcon, ShareIcon } from './Model';
 import { stylesFactory } from './styles';
@@ -22,8 +21,6 @@ const MovieCard: React.FC<IProps> = React.memo(
     movie = camelizeKeys(movie);
     const theme = useTheme();
     const styles = stylesFactory(theme);
-
-    console.log('data: ', movie.title);
 
     const handleLike = () => {
       if (liked) {
