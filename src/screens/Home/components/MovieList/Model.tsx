@@ -15,10 +15,10 @@ const { width, height } = Dimensions.get('window');
 // Adjustment for margin given to the
 // RecyclerListView + List Content Container theme.spacing(0.75) * 2;
 const getWindowWidth = () => {
-  return Math.round(width * 1000) / 1000 - theme.spacingUnit(width, 0.75) * 2;
+  return Math.round(width * 1000) / 1000 - theme.spacingUnit(width, 0.7) * 2;
 };
 
-export const MOVIE_CARD_HEIGHT = height * 0.75;
+export const MOVIE_CARD_HEIGHT = height * 0.7;
 export const MOVIE_CARD_BOTTOM_MARGIN = height * 0.08;
 
 export const getLayoutProvider = () => {

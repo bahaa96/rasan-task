@@ -1,30 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment } from 'react';
-import { StyleSheet } from 'react-native';
+import './src/locale/config';
+import './src/utils';
+
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, IconRegistry } from '@ui-kitten/components';
-import theme from './src/theme';
+import {
+  ApplicationProvider,
+  IconRegistry,
+  Layout,
+} from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+
+import { FavoritesContextProvider } from './src/context/FavoritesContext';
 import Router from './src/router';
+import theme from './src/theme';
 
-import './src/locale/config'
-
-export default function App() {
+const App: React.FC = () => {
   return (
-    <Fragment>
-      <StatusBar style={'dark'} />
+    <>
+      <StatusBar style="dark" />
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
         <Layout style={styles.container}>
           <Router />
         </Layout>
       </ApplicationProvider>
-    </Fragment>
+    </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+export default App;

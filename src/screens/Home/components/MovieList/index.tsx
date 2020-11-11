@@ -1,30 +1,31 @@
 import { useTheme } from '@ui-kitten/components';
-import flatMap from 'lodash/flatMap';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { useInfiniteQuery } from 'react-query';
+import { ActivityIndicator, RefreshControl, Text, View } from 'react-native';
+import { QueryResultBase } from 'react-query';
 import { DataProvider, RecyclerListView } from 'recyclerlistview';
 
-import MovieCard from '../MovieCard';
-import { fetchMovies, getLayoutProvider, IMovie, ViewTypes } from './Model';
+import { wait } from '../../../../utils';
+import MovieCard from '../MovieCard/Container';
+import { getLayoutProvider, IMovie } from './Model';
 import { stylesFactory } from './styles';
 
-const MovieList = () => {
+interface IProps extends Partial<QueryResultBase<IMovie[]>> {
+  data: IMovie[];
+}
+
+const MovieList: React.FC<IProps> = ({
+  status,
+  error,
+  data,
+  isFetchingMore,
+  canFetchMore,
+  fetchMore,
+  refetch,
+}) => {
   const theme = useTheme();
   const styles = stylesFactory(theme);
-  const {
-    status,
-    isFetching,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
-    data,
-    error,
-  } = useInfiniteQuery('movies', fetchMovies, {
-    getFetchMore: (lastGroup) => {
-      return lastGroup.page + 1;
-    },
-  });
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const [dataProvider, setDataProvider] = useState(
     new DataProvider((r1, r2) => {
       return r1.id !== r2.id;
@@ -33,9 +34,11 @@ const MovieList = () => {
   const [layoutProvider, setLayoutProvider] = useState(getLayoutProvider());
 
   const handleListEnd = () => {
-    console.log('reached end');
     if (canFetchMore) {
-      fetchMore();
+      if (fetchMore) {
+        // TODO: add a fallback
+        fetchMore();
+      }
     }
   };
 
@@ -49,17 +52,13 @@ const MovieList = () => {
     return <View style={{ height: 60 }} />;
   };
 
-  const rowRenderer = (type: ViewTypes, data: IMovie) => {
-    return <MovieCard movie={data} />;
+  const rowRenderer = (type: string, movie: IMovie) => {
+    return <MovieCard {...{ movie }} />;
   };
 
   useEffect(() => {
     if (data) {
-      const concatenatedGroup = flatMap(data, (group) => {
-        return group.results;
-      });
-      console.log('flat : ', concatenatedGroup);
-      setDataProvider(dataProvider.cloneWithRows(concatenatedGroup));
+      setDataProvider(dataProvider.cloneWithRows(data));
     }
   }, [data]);
 
@@ -90,6 +89,21 @@ const MovieList = () => {
         renderFooter={renderFooter}
         scrollViewProps={{
           showsVerticalScrollIndicator: false,
+          refreshControl: (
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={async () => {
+                if (refetch) {
+                  setRefreshing(true);
+                  wait(2000).then(() => {
+                    // TODO: add a fallback
+                    refetch();
+                    setRefreshing(false);
+                  });
+                }
+              }}
+            />
+          ),
         }}
       />
     </View>
