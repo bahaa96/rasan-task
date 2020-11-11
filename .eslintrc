@@ -41,6 +41,10 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-curly-spacing": 0,
     "comma-dangle": "off",
+    "arrow-body-style": [
+      "error",
+      "always"
+    ],
     "@typescript-eslint/comma-dangle": [
       "error"
     ],

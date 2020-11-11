@@ -9,14 +9,19 @@ import { IItem, ItemIconProps } from './types';
 const ItemIcon: React.FC<ItemIconProps> = ({ name }) => (
   <Icon style={{ width: 35, height: 35 }} fill="rgba(0,0,0,0.85)" name={name} />
 );
-export const generateSettingsList = () => {
+export const useSettingsList = (bottomSheetRef) => {
   const { navigate } = useNavigation();
 
   const list: IItem[] = [
     {
       label: i18n.t('SETTINGS_ITEM_CHANGE_LANGUAGE'),
       icon: <ItemIcon name="globe-outline" />,
-      onPress: () => {},
+      onPress: () => {
+        console.log('ref: ', bottomSheetRef);
+
+        bottomSheetRef.current.current.state.isVisible = true;
+        bottomSheetRef.current.current.open();
+      },
     },
     {
       label: i18n.t('SETTINGS_ITEM_FAVORITES'),

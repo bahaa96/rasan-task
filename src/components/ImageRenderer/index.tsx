@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Image, ImageStyle, Platform } from 'react-native';
 
 const isIOS = Platform.OS === 'ios';
@@ -21,14 +21,17 @@ const ImageRenderer: React.FC<IProps> = React.memo(
     };
 
     useEffect(() => {
-      // On iOS while recycling till the new image is loaded the old one remains visible. This forcefully hides the old image.
-      // It is then made visible onLoad
+      /*
+        On iOS while recycling till the new image is loaded the old one remains visible.
+        This forcefully hides the old image.
+         It is then made visible onLoad
+      */
       if (isIOS && imageRef.current) {
         imageRef.current.setNativeProps({
           opacity: 0,
         });
       }
-    }, [isIOS, imageRef]);
+    }, [imageRef]);
 
     return (
       <Image
@@ -39,7 +42,7 @@ const ImageRenderer: React.FC<IProps> = React.memo(
       />
     );
   },
-  (prevProps, nextProps) => prevProps.imageUrl !== nextProps.imageUrl,
+  (prevProps, nextProps) => prevProps.imageUrl === nextProps.imageUrl,
 );
 
 export default ImageRenderer;

@@ -49,10 +49,9 @@ const MovieCard: React.FC<IProps> = ({ movie }) => {
   return (
     <View style={styles.container}>
       <View style={styles.posterWrapper}>
-        <Image
+        <ImageRenderer
           style={styles.posterImage}
-          source={{ uri: `${config.CDN_URL}/t/p/w300${movie.posterPath}` }}
-          // imageUrl={`${config.CDN_URL}/t/p/w300${movie.posterPath}`}
+          imageUrl={`${config.CDN_URL}/t/p/w300${movie.posterPath}`}
         />
       </View>
       <View style={styles.overlay}>

@@ -1,16 +1,20 @@
 import { Divider, List, ListItem } from '@ui-kitten/components';
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { useCallback, useMemo, useRef } from 'react';
+import {
+ SafeAreaView, StyleSheet, Text, View 
+} from 'react-native';
+import Modal from 'react-native-modal';
 
 import Navbar from '../../components/Navbar';
 import T from '../../components/Transliteration';
 import { RootStackComponent } from '../../typings/routing';
-import { generateSettingsList } from './Model';
+import LanguageBottomSheet from './components/LanguageBottomSheet';
+import { useSettingsList } from './Model';
 import { IItem } from './types';
 
 const Settings: RootStackComponent<'Settings'> = () => {
-  const [settingsList] = generateSettingsList();
-
+  const bottomSheetRef = useRef<Modal | null>();
+  const [settingsList] = useSettingsList(bottomSheetRef);
   const renderItem = ({ item }: { item: IItem }) => (
     <ListItem
       key={item.label}
@@ -19,6 +23,10 @@ const Settings: RootStackComponent<'Settings'> = () => {
       onPress={item.onPress}
     />
   );
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,6 +38,16 @@ const Settings: RootStackComponent<'Settings'> = () => {
         ItemSeparatorComponent={Divider}
         renderItem={renderItem}
       />
+      <LanguageBottomSheet>
+        {(ref: Modal | null) => {
+          bottomSheetRef.current = ref;
+          return (
+            <View>
+              <Text>Body</Text>
+            </View>
+          );
+        }}
+      </LanguageBottomSheet>
     </SafeAreaView>
   );
 };
