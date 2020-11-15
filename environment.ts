@@ -25,6 +25,8 @@ const ENV = {
 };
 
 const getEnvVars = (env = Constants.manifest.releaseChannel): IEnvVars | {} => {
+  console.log('env: ', env);
+
   // What is __DEV__ ?
   // This variable is set to true when react-native is running in Dev mode.
   // __DEV__ is true when run locally, but false when published.
@@ -38,7 +40,7 @@ const getEnvVars = (env = Constants.manifest.releaseChannel): IEnvVars | {} => {
     return ENV.prod;
   }
 
-  return {};
+  return base;
 };
 
 export default getEnvVars;

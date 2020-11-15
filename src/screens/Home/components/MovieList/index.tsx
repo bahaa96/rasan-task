@@ -1,6 +1,8 @@
 import { useTheme } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, RefreshControl, Text, View } from 'react-native';
+import {
+ ActivityIndicator, RefreshControl, Text, View 
+} from 'react-native';
 import { QueryResultBase } from 'react-query';
 import { DataProvider, RecyclerListView } from 'recyclerlistview';
 
@@ -53,7 +55,7 @@ const MovieList: React.FC<IProps> = ({
   };
 
   const rowRenderer = (type: string, movie: IMovie) => {
-    return <MovieCard {...{ movie }} />;
+    return <MovieCard {...{ movie }} key={movie.id} />;
   };
 
   useEffect(() => {
