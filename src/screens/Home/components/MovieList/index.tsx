@@ -1,8 +1,6 @@
 import { useTheme } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
-import {
- ActivityIndicator, RefreshControl, Text, View 
-} from 'react-native';
+import { ActivityIndicator, RefreshControl, Text, View } from 'react-native';
 import { QueryResultBase } from 'react-query';
 import { DataProvider, RecyclerListView } from 'recyclerlistview';
 
@@ -86,7 +84,6 @@ const MovieList: React.FC<IProps> = ({
         onEndReached={handleListEnd}
         onEndReachedThreshold={200}
         dataProvider={dataProvider}
-        disableRecycling
         layoutProvider={layoutProvider}
         rowRenderer={rowRenderer}
         renderFooter={renderFooter}

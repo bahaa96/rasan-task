@@ -2,13 +2,14 @@ import { Button, useTheme } from '@ui-kitten/components';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Localization from 'expo-localization';
 import { camelizeKeys } from 'humps';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Share, Text, View } from 'react-native';
 
 import HorizontalDivider from '../../../../components/HorizontalDivider';
 import ImageRenderer from '../../../../components/ImageRenderer';
 import T from '../../../../components/Transliteration';
 import config from '../../../../config';
+import LocaleContext from '../../../../context/LocaleContext';
 import KEYS from '../../../../locale/keys';
 import { toLocalDate } from '../../../../utils';
 import { IMovie } from '../MovieList/Model';
@@ -25,6 +26,7 @@ const MovieCard: React.FC<IProps> = React.memo(
     movie = camelizeKeys(movie);
     const theme = useTheme();
     const styles = stylesFactory(theme);
+    const { locale } = useContext(LocaleContext);
 
     const handleLike = () => {
       if (liked) {
@@ -70,7 +72,7 @@ const MovieCard: React.FC<IProps> = React.memo(
             <View style={styles.ratingWrapper}>
               <View style={styles.rating}>
                 <Text style={styles.ratingText}>
-                  {movie.voteAverage.toLocaleString(Localization.locale)}
+                  {movie.voteAverage.toLocaleString(locale)}
                 </Text>
               </View>
             </View>
