@@ -17,6 +17,12 @@ const EN: Shape = {
   [KEYS.CHANGE_LANGUAGE_TEXT]: 'Change Language 🌎',
   [KEYS.ENGLISH_LANGUAGE]: 'English',
   [KEYS.ARABIC_LANGUAGE]: 'العربيه',
+
+  [KEYS.MOVIE_CARD_BOOK_ACTION]: 'Book',
+
+  // genres
+  [KEYS.MOVIE_ACTION_GENRE]: 'Action',
+  [KEYS.MOVIE_HORROR_GENRE]: 'Horror',
   // }
 };
 

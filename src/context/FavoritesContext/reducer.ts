@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 
-import { IMovie } from '../screens/Home/components/MovieList/Model';
-import { MyArray } from '../utils';
+import { IMovie } from '../../screens/Home/components/MovieList/Model';
+import { MyArray } from '../../utils';
 import * as actions from './actions';
 import {
   ADD_TO_FAVORITES,

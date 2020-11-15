@@ -1,11 +1,13 @@
 import flatMap from 'lodash/flatMap';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
+import LocaleContext from '../../../../context/LocaleContext';
 import MovieList from '.';
 import { fetchMovies } from './Model';
 
 const MovieListContainer: React.FC = () => {
+  const { locale } = useContext(LocaleContext);
   const {
     status,
     isFetchingMore,
@@ -14,18 +16,16 @@ const MovieListContainer: React.FC = () => {
     data,
     error,
     refetch,
-  } = useInfiniteQuery('movies', fetchMovies, {
+  } = useInfiniteQuery(['movies', locale], fetchMovies, {
     cacheTime: 0,
     getFetchMore: (lastGroup) => {
       return lastGroup.page + 1;
     },
   });
 
-  const concatenatedGroup = useMemo(() => {
-    return flatMap(data, (group) => {
-      return group.results;
-    });
-  }, [data]);
+  const concatenatedGroup = flatMap(data, (group) => {
+    return group.results;
+  });
 
   return (
     <MovieList

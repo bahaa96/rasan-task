@@ -1,1 +1,1 @@
-declare module 'react-native-snackbar-component';
+declare module 'moment/locale/ar';

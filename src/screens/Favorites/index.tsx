@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 
 import Navbar from '../../components/Navbar';
 import T from '../../components/Transliteration';
-import FavoritesContext from '../../context/FavoritesContext';
+import FavoritesContext from '../../context/FavoritesContext/FavoritesContext';
 import { RootStackComponent } from '../../typings/routing';
 import MovieList from '../Home/components/MovieList';
 import { IMovie } from '../Home/components/MovieList/Model';

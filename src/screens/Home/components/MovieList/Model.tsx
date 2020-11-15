@@ -42,15 +42,24 @@ export const getLayoutProvider = () => {
 
 export const fetchMovies: (
   key: string,
+  locale: string,
   page: number,
-) => Promise<{ results: IMovie[]; page: number }> = async (key, page = 1) => {
+) => Promise<{ results: IMovie[]; page: number }> = async (
+  key,
+  locale,
+  page = 1,
+) => {
+  console.log('lang: ', locale);
   const { API_URL, API_KEY } = config;
   const params = decamelizeKeys({
     apiKey: API_KEY,
     sortBy: 'popularity.desc',
+    language: locale,
     page,
   });
   const url = `${API_URL}/discover/movie/?${queryStringify(params)}`;
+
+  console.log('url: ', url);
 
   const res = await Axios.get(url);
   if (isOK(res.status)) {

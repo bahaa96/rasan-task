@@ -1,12 +1,16 @@
 import { Button, useTheme } from '@ui-kitten/components';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Localization from 'expo-localization';
 import { camelizeKeys } from 'humps';
 import React from 'react';
 import { Share, Text, View } from 'react-native';
 
 import HorizontalDivider from '../../../../components/HorizontalDivider';
 import ImageRenderer from '../../../../components/ImageRenderer';
+import T from '../../../../components/Transliteration';
 import config from '../../../../config';
+import KEYS from '../../../../locale/keys';
+import { toLocalDate } from '../../../../utils';
 import { IMovie } from '../MovieList/Model';
 import { HeartIcon, ShareIcon } from './Model';
 import { stylesFactory } from './styles';
@@ -65,7 +69,9 @@ const MovieCard: React.FC<IProps> = React.memo(
           >
             <View style={styles.ratingWrapper}>
               <View style={styles.rating}>
-                <Text style={styles.ratingText}>{movie.voteAverage}</Text>
+                <Text style={styles.ratingText}>
+                  {movie.voteAverage.toLocaleString(Localization.locale)}
+                </Text>
               </View>
             </View>
             <View style={styles.headerActions}>
@@ -91,10 +97,12 @@ const MovieCard: React.FC<IProps> = React.memo(
             </View>
             <View style={styles.meta}>
               <Text style={styles.metaText}>
-                {movie.releaseDate.split('-').slice(0, 1)}
+                {toLocalDate(movie.releaseDate, 'year')}
               </Text>
               <HorizontalDivider />
-              <Text style={styles.metaText}>{movie.releaseDate}</Text>
+              <Text style={styles.metaText}>
+                {toLocalDate(movie.releaseDate)}
+              </Text>
             </View>
           </View>
           <LinearGradient
@@ -103,14 +111,14 @@ const MovieCard: React.FC<IProps> = React.memo(
           >
             <View style={styles.genres}>
               <Button style={styles.genre} size="small" status="primary">
-                Action
+                <T name={KEYS.MOVIE_ACTION_GENRE} />
               </Button>
               <Button style={styles.genre} size="small" status="primary">
-                Horror
+                <T name={KEYS.MOVIE_HORROR_GENRE} />
               </Button>
             </View>
             <Button status="warning" style={styles.submit}>
-              Book
+              <T name={KEYS.MOVIE_CARD_BOOK_ACTION} />
             </Button>
           </LinearGradient>
         </View>

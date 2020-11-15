@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useReducer } from 'react';
-import { AsyncStorage } from 'react-native';
 
-import { IMovie } from '../screens/Home/components/MovieList/Model';
-import { getStoredData, MyArray, storeData } from '../utils';
+import { IMovie } from '../../screens/Home/components/MovieList/Model';
+import { MyArray } from '../../utils';
+import { getStoredData, storeData } from '../../utils/storage';
 import * as actions from './actions';
 import reducer from './reducer';
 

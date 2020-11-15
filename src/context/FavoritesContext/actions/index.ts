@@ -1,7 +1,7 @@
 import { action, ActionType } from 'typesafe-actions';
 
-import { IMovie } from '../../screens/Home/components/MovieList/Model';
-import { $fixme } from '../../typings/fixme';
+import { IMovie } from '../../../screens/Home/components/MovieList/Model';
+import { $fixme } from '../../../typings/fixme';
 import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,

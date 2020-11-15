@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
 
-import FavoritesContext from '../../../../context/FavoritesContext';
+import FavoritesContext from '../../../../context/FavoritesContext/FavoritesContext';
 import { IMovie } from '../MovieList/Model';
 import MovieCard from '.';
 

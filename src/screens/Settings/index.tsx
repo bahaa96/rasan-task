@@ -6,12 +6,12 @@ import {
   ListItem,
   Modal,
 } from '@ui-kitten/components';
-import i18n from 'i18n-js';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import Navbar from '../../components/Navbar';
 import T from '../../components/Transliteration';
+import LocaleContext from '../../context/LocaleContext';
 import KEYS from '../../locale/keys';
 import { RootStackComponent } from '../../typings/routing';
 import { useSettingsList } from './Model';
@@ -20,6 +20,7 @@ import { IItem } from './types';
 const Settings: RootStackComponent<'Settings'> = () => {
   const [visible, setVisible] = React.useState(false);
   const [settingsList] = useSettingsList(setVisible);
+  const { handleLanguageChange } = useContext(LocaleContext);
 
   const renderItem = ({ item }: { item: IItem }) => {
     return (
@@ -34,10 +35,6 @@ const Settings: RootStackComponent<'Settings'> = () => {
     );
   };
 
-  const handleLanguageChange = (language: string) => {
-    // Todo: change the language of the entire app
-    console.log(language);
-  };
   return (
     <SafeAreaView style={styles.container}>
       <Navbar title={<T name="SETTINGS_PAGE_TITLE" />} showActions={false} />
@@ -49,6 +46,7 @@ const Settings: RootStackComponent<'Settings'> = () => {
         renderItem={renderItem}
       />
       <Modal
+        style={{ width: '75%' }}
         visible={visible}
         backdropStyle={styles.backdrop}
         onBackdropPress={() => {
@@ -91,11 +89,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalTitle: {
-    margin: 16,
+    margin: 32,
     marginBottom: 64,
   },
   modalTitleText: {
     fontSize: 18,
+    textAlign: 'center',
     fontWeight: '500',
   },
   options: {
